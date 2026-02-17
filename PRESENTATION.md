@@ -8,7 +8,7 @@ A system that processes a large server log file using **Java Streams API** and c
 
 ---
 
-## Files
+## File Structure
 
 | File | Purpose |
 |---|---|
