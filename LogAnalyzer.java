@@ -1,3 +1,5 @@
+
+// Java Streams API - Log Analyzer v1.0
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.*;
@@ -25,8 +27,7 @@ public class LogAnalyzer {
                     .collect(
                             MetricsAccumulator::new,
                             MetricsAccumulator::accumulate,
-                            MetricsAccumulator::combine
-                    );
+                            MetricsAccumulator::combine);
         }
 
         long endMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
@@ -46,8 +47,7 @@ public class LogAnalyzer {
                         e -> e.getValue().stream()
                                 .mapToLong(Long::longValue)
                                 .average()
-                                .orElse(0.0)
-                ));
+                                .orElse(0.0)));
 
         avgResponseTime.entrySet().stream()
                 .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
@@ -139,14 +139,14 @@ public class LogAnalyzer {
     static LogEntry parseLine(String line) {
         try {
             String[] parts = line.split(",");
-            if (parts.length < 5) return null;
+            if (parts.length < 5)
+                return null;
             return new LogEntry(
                     parts[0].trim(),
                     parts[1].trim(),
                     parts[2].trim(),
                     Long.parseLong(parts[3].trim()),
-                    Integer.parseInt(parts[4].trim())
-            );
+                    Integer.parseInt(parts[4].trim()));
         } catch (Exception e) {
             return null;
         }
@@ -176,12 +176,12 @@ class MetricsAccumulator {
     }
 
     void combine(MetricsAccumulator other) {
-        other.endpointResponseTimes.forEach((k, v) ->
-                endpointResponseTimes.merge(k, v, (a, b) -> { a.addAll(b); return a; }));
-        other.endpointTotalCount.forEach((k, v) ->
-                endpointTotalCount.merge(k, v, Long::sum));
-        other.endpointErrorCount.forEach((k, v) ->
-                endpointErrorCount.merge(k, v, Long::sum));
+        other.endpointResponseTimes.forEach((k, v) -> endpointResponseTimes.merge(k, v, (a, b) -> {
+            a.addAll(b);
+            return a;
+        }));
+        other.endpointTotalCount.forEach((k, v) -> endpointTotalCount.merge(k, v, Long::sum));
+        other.endpointErrorCount.forEach((k, v) -> endpointErrorCount.merge(k, v, Long::sum));
         allResponseTimes.addAll(other.allResponseTimes);
         uniqueUsers.addAll(other.uniqueUsers);
         totalEntries += other.totalEntries;
@@ -197,8 +197,8 @@ class LogEntry {
     private final int statusCode;
 
     public LogEntry(String timestamp, String userId,
-                    String endpoint, long responseTime,
-                    int statusCode) {
+            String endpoint, long responseTime,
+            int statusCode) {
         this.timestamp = timestamp;
         this.userId = userId;
         this.endpoint = endpoint;
@@ -206,9 +206,23 @@ class LogEntry {
         this.statusCode = statusCode;
     }
 
-    public String getTimestamp() { return timestamp; }
-    public String getUserId() { return userId; }
-    public String getEndpoint() { return endpoint; }
-    public long getResponseTime() { return responseTime; }
-    public int getStatusCode() { return statusCode; }
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getEndpoint() {
+        return endpoint;
+    }
+
+    public long getResponseTime() {
+        return responseTime;
+    }
+
+    public int getStatusCode() {
+        return statusCode;
+    }
 }

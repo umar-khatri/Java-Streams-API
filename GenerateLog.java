@@ -1,3 +1,5 @@
+
+// Java Streams API - Log Generator v1.0
 import java.io.*;
 import java.util.Random;
 
@@ -8,13 +10,13 @@ import java.util.Random;
 public class GenerateLog {
 
     static final String[] ENDPOINTS = {
-        "/api/login", "/api/logout", "/api/dashboard", "/api/profile",
-        "/api/settings", "/api/upload", "/api/download", "/api/search",
-        "/api/users", "/api/reports", "/api/notifications", "/api/payments",
-        "/api/orders", "/api/products", "/api/analytics"
+            "/api/login", "/api/logout", "/api/dashboard", "/api/profile",
+            "/api/settings", "/api/upload", "/api/download", "/api/search",
+            "/api/users", "/api/reports", "/api/notifications", "/api/payments",
+            "/api/orders", "/api/products", "/api/analytics"
     };
 
-    static final int[] STATUS_CODES = {200, 200, 200, 200, 200, 201, 301, 400, 401, 403, 404, 500, 502, 503};
+    static final int[] STATUS_CODES = { 200, 200, 200, 200, 200, 201, 301, 400, 401, 403, 404, 500, 502, 503 };
 
     public static void main(String[] args) throws IOException {
         int totalLines = 10_000;
